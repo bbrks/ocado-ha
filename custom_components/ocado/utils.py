@@ -120,8 +120,8 @@ def get_order_number(message: str) -> str:
     raw = re.search(r"(?:Order\s(?:ref(?:\.|erence):|no:|is)?(?:\s+))(?P<order_number>\d+)",message)
     if raw:
         return raw.group('order_number')
-    _LOGGER.error("No order number retrieved from message %s.", message[:20])
-    raise ValueError("No order number retrieved from message %s.", message[:20])
+    _LOGGER.error("No order number retrieved from message %s.", message)
+    raise ValueError("No order number retrieved from message %s.", message)
 
 
 def capitalise(text: str) -> str:
