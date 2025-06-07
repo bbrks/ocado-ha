@@ -260,6 +260,7 @@ def _parse_email(message_id: bytes, message_data: bytes) -> OcadoEmail:
     email_date = get_email_from_datetime(email_message.get("Date")) # type: ignore
     email_from_address = get_email_from_address(email_message.get('From')) # type: ignore
     email_subject = email_message.get("Subject")
+    _LOGGER.debug("Parsing %s from %s", email_subject, email_date)
     email_body = ""
     # multipart will return true if there are attachments, text, html versions of the body, etc.
     # if multipart returns true, get_payload will return a list instead of a string.
