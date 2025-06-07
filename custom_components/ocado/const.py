@@ -9,8 +9,8 @@ OCADO_ADDRESS =                 "noreply@email.ocado.com"
 OCADO_CANCELLATION_SUBJECT =    "Order cancellation confirmation"
 OCADO_CONFIRMATION_SUBJECT =    "Confirmation of your order"
 OCADO_CUTOFF_SUBJECT =          "Don't miss the cut-off time for editing your order"
-OCADO_NEW_TOTAL_SUBJECT =       "What you returned, and your new total"
-OCADO_RECEIPT_SUBJECT =         "Your receipt for today's Ocado delivery"
+OCADO_NEW_TOTAL_SUBJECT =       "Confirmation of your order changes"
+OCADO_RECEIPT_SUBJECT =         "Your receipt and updates for today’s delivery"
 OCADO_SMARTPASS_SUBJECT =       "Payment successful: Smart Pass membership"
 OCADO_SUBJECT_DICT = {
     OCADO_CANCELLATION_SUBJECT: "cancellation",
