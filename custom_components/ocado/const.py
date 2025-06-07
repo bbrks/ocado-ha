@@ -5,7 +5,7 @@ import re
 
 DOMAIN = "ocado"
 
-OCADO_ADDRESS =                 "customerservices@ocado.com"
+OCADO_ADDRESS =                 "noreply@email.ocado.com"
 OCADO_CANCELLATION_SUBJECT =    "Order cancellation confirmation"
 OCADO_CONFIRMATION_SUBJECT =    "Confirmation of your order"
 OCADO_CUTOFF_SUBJECT =          "Don't miss the cut-off time for editing your order"
