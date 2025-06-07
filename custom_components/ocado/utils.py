@@ -106,7 +106,7 @@ def get_delivery_datetimes(message: str | None) -> tuple[datetime, datetime] | t
 
 def get_edit_datetime(message: str) -> datetime:
     """Parse the edit deadline datetime."""
-    pattern = fr"(?:You\scan\sedit\sthis\sorder\suntil:?\s)(?P<time>{REGEX_TIME})(?:\son\s)(?P<day>{REGEX_DATE})(?:{REGEX_ORDINALS})\s(?P<month>{REGEX_MONTH_FULL})\s(?P<year>{REGEX_YEAR})"
+    pattern = fr"(?:You\scan\sedit\sthis\sorder\suntil:?\s)(?P<time>{REGEX_TIME})(?:\son|,)\s(?P<day>{REGEX_DATE})(?:{REGEX_ORDINALS})?\s(?P<month>{REGEX_MONTH_FULL})\s(?P<year>{REGEX_YEAR})"
     raw = re.search(pattern, message)
     if raw:
         edit_datetime_raw = raw.group('year') + '-' + raw.group('month') + '-' + raw.group('day') + ' ' + raw.group('time')
