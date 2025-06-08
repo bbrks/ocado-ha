@@ -77,8 +77,8 @@ def get_delivery_datetimes(message: str | None) -> tuple[datetime, datetime] | t
         month = raw.group('month')
         day = raw.group('day')
     else:
-        _LOGGER.error("Delivery date not found when retrieving delivery datetime from message.")
-        raise ValueError("Delivery date not found when retrieving delivery datetime from message.")
+        _LOGGER.error("Delivery date not found when retrieving delivery datetime from message %s", message)
+        raise ValueError("Delivery date not found when retrieving delivery datetime from message %s", message)
     pattern = fr"(?P<day>{REGEX_DATE})(?:{REGEX_ORDINALS})\s(?P<month>{REGEX_MONTH_FULL})\s(?P<year>{REGEX_YEAR})"
     year_raw = re.search(pattern, message)
     if year_raw:
@@ -87,16 +87,16 @@ def get_delivery_datetimes(message: str | None) -> tuple[datetime, datetime] | t
         if year_raw.group('month') == 'December' and month == 'January':
             year = str(int(year) + 1)
     else:
-        _LOGGER.error("Year not found when retrieving delivery datetime from message.")
-        raise ValueError("Year not found when retrieving delivery datetime from message.")
+        _LOGGER.error("Year not found when retrieving delivery datetime from message %s", message)
+        raise ValueError("Year not found when retrieving delivery datetime from message %s", message)
     pattern = fr"Delivery\stime:\s{{1,20}}(?P<start>{REGEX_TIME})\sand\s(?P<end>{REGEX_TIME})"
     delivery_time_raw = re.search(pattern, message)    
     if delivery_time_raw:
         start_time = re.sub(r"pm",r"PM",re.sub(r"am",r"AM",delivery_time_raw.group('start')))
         end_time = re.sub(r"pm",r"PM",re.sub(r"am",r"AM",delivery_time_raw.group('end')))
     else:        
-        _LOGGER.error("Time not found when retrieving delivery datetime from message.")
-        raise ValueError("Time not found when retrieving delivery datetime from message.")
+        _LOGGER.error("Time not found when retrieving delivery datetime from message %s", message)
+        raise ValueError("Time not found when retrieving delivery datetime from message %s", message)
     delivery_datetime_raw = year + '-' + month + '-' + day + ' ' + start_time
     delivery_datetime = datetime.strptime(delivery_datetime_raw,'%Y-%B-%d %I:%M%p')
     delivery_window_end_raw = year + '-' + month + '-' + day + ' ' + end_time
