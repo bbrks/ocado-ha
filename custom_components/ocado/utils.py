@@ -69,7 +69,7 @@ def get_estimated_total(message: str) -> str:
 
 def get_delivery_datetimes(message: str | None) -> tuple[datetime, datetime] | tuple[None, None]:
     """Parse and return the delivery datetime."""
-    pattern = fr"Delivery\sdate:\s{{1,20}}(?:{REGEX_DAY_FULL})\s(?P<day>{REGEX_DATE})\s(?P<month>{REGEX_MONTH_FULL})"
+    pattern = fr"Delivery\sdate:\s+(?:{REGEX_DAY_FULL}\s)?(?P<day>{REGEX_DATE})\s(?P<month>{REGEX_MONTH_FULL})"
     if message is None:
         return None, None
     raw = re.search(pattern, message)
