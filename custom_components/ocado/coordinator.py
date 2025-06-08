@@ -113,4 +113,5 @@ class OcadoUpdateCoordinator(DataUpdateCoordinator):
                 }
             return payload_raw
         except Exception as err:
+                _LOGGER.error("No receipt email found.")
             raise UpdateFailed(f"Error fetching data: {err}") from err
