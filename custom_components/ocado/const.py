@@ -51,7 +51,7 @@ REGEX_MONTH = r"1[0-2]|0?[1-9]"
 REGEX_YEAR = r"(?:19|20)\d{2}"
 # If this eventually fails due to other formats being used, python-dateutil should be used
 REGEX_DATE_FULL = r"((?:" + REGEX_DATE + r")\/(?:" + REGEX_MONTH + r")\/(?:" + REGEX_YEAR + r"))"
-REGEX_TIME = r"([01][0-9]|2[0-3])(:|.)([0-5][0-9])\s*([AaPp][Mm])?"
+REGEX_TIME = r"([01]?[0-9]|2[0-3])(:|.)([0-5][0-9])\s*([AaPp][Mm])?"
 REGEX_ORDINALS = r"st|nd|rd|th"
 
 REGEX_AMOUNT = r"(?:\d+x)?\d+k?(?:g|l|ml)"
