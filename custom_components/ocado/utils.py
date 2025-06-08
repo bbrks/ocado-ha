@@ -69,27 +69,18 @@ def get_estimated_total(message: str) -> str:
 
 def get_delivery_datetimes(message: str | None) -> tuple[datetime, datetime] | tuple[None, None]:
     """Parse and return the delivery datetime."""
-    pattern = fr"Delivery\sdate:\s+(?:{REGEX_DAY_FULL}\s)?(?P<day>{REGEX_DATE})\s(?P<month>{REGEX_MONTH_FULL})"
+    pattern = fr"Delivery\sdate:\s+(?:{REGEX_DAY_FULL}\s)?(?P<day>{REGEX_DATE})\s(?P<month>{REGEX_MONTH_FULL})\s(?P<year>{REGEX_YEAR})"
     if message is None:
         return None, None
     raw = re.search(pattern, message)
     if raw:
+        year = raw.group('year')
         month = raw.group('month')
         day = raw.group('day')
     else:
         _LOGGER.error("Delivery date not found when retrieving delivery datetime from message %s", message)
         raise ValueError("Delivery date not found when retrieving delivery datetime from message %s", message)
-    pattern = fr"(?P<day>{REGEX_DATE})(?:{REGEX_ORDINALS})\s(?P<month>{REGEX_MONTH_FULL})\s(?P<year>{REGEX_YEAR})"
-    year_raw = re.search(pattern, message)
-    if year_raw:
-        year = year_raw.group('year')
-        # in case the delivery occurs after NY, since the year comes from the edit date
-        if year_raw.group('month') == 'December' and month == 'January':
-            year = str(int(year) + 1)
-    else:
-        _LOGGER.error("Year not found when retrieving delivery datetime from message %s", message)
-        raise ValueError("Year not found when retrieving delivery datetime from message %s", message)
-    pattern = fr"Delivery\stime:\s{{1,20}}(?P<start>{REGEX_TIME})\sand\s(?P<end>{REGEX_TIME})"
+    pattern = fr"Delivery\stime:\s+(?:Between\s)?(?P<start>{REGEX_TIME})\sand\s(?P<end>{REGEX_TIME})"
     delivery_time_raw = re.search(pattern, message)    
     if delivery_time_raw:
         start_time = re.sub(r"pm",r"PM",re.sub(r"am",r"AM",delivery_time_raw.group('start')))
